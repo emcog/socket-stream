@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Socket stream canvas</title>
+</head>
+<body>
+    <img id = 'image'>
+    Hi!!
+    <form>
+        <div id='button' style = "height: 100px; width: 100px; background: gray;"></div>
+    </form>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+    <script>
+
+        const socket = io.connect('http://localhost:3000');
+        socket.on('hook', (data) => {
+            console.log('data', data);
+        });
+        const button = document.getElementById('button');
+
+        setInterval(() => {
+            // console.log('user-server');
+            socket.emit ('user-server', 'Hey server')
+        }, 1000);
+
+        button.addEventListener('click', () => {
+            console.log('Hey button');
+            socket.emit('button', 'Hey button!');
+        } , false);
+        
+    </script>
+</body>
+</html>
